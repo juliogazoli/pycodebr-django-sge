@@ -1,13 +1,9 @@
 from django.shortcuts import render
+from . import metrics
 
 
-def home(request):
-    product_metrics = {
-        'total_quantity': 1000,
-        'total_cost_price': 100000,
-        'total_selling_price': 300000,
-        'total_profit': 200000,
-    }
+def home(request):   
+    product_metrics = metrics.get_product_metrics()
 
     context = {
         'product_metrics': product_metrics
