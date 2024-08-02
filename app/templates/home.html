@@ -25,8 +25,8 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            var dailySalesData = JSON.parse('{{ daily_sales|safe }}')
-            var dailySalesQuantityData = JSON.parse('{{ daily_sales_quantity_data|safe }}')
+            var dailySalesData = JSON.parse('{{ daily_sales_data|safe }}')
+            {% comment %} var dailySalesQuantityData = JSON.parse('{{ daily_sales_quantity_data|safe }}') {% endcomment %}
 
             var ctxDailySales = document.getElementById('dailySalesChart').getContext('2d')
             var dailySalesChart = new Chart(ctxDailySales, {
@@ -35,7 +35,7 @@
                     labels: dailySalesData.dates,
                     datasets: [{
                         label: 'Valor em vendas',
-                        data: dailySalesData.value,
+                        data: dailySalesData.values,
                         fill: false,
                         borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 2,
@@ -51,7 +51,7 @@
                 }
             })
 
-            var ctxDailySalesQuantity = document.getElementById('dailySalesQuantityChart').getContext('2d')
+            {% comment %} var ctxDailySalesQuantity = document.getElementById('dailySalesQuantityChart').getContext('2d')
             var dailySalesQuantityChart = new Chart(ctxDailySalesQuantity, {
                 type: 'bar',
                 data: {
@@ -71,7 +71,7 @@
                         }
                     }
                 }
-            })
+            }) {% endcomment %}
         })
     </script>
 
