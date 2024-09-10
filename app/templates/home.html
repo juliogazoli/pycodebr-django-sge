@@ -6,22 +6,29 @@
 
 {% block content %}
 
-    {% include 'components/_product_metrics.html' %}
-    {% include 'components/_sales_metrics.html' %}
+    {% if perms.products.view_product and perms.inflows.view_inflow %}
+        {% include 'components/_product_metrics.html' %}
+    {% endif %}
+
+    {% if perms.outflows.view_outflow %}
+        {% include 'components/_sales_metrics.html' %}
+    {% endif %}
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <div class="row mt-4 justify-content-center">
-        <div class="col-md-6 text-center">
-            <h5 class="text-center mb-3">Valor de vendas (útlimos 7 dias)</h5>
-            <canvas id="dailySalesChart"></canvas>
-        </div>
+    {% if perms.outflows.view_outflow %}
+        <div class="row mt-4 justify-content-center">
+            <div class="col-md-6 text-center">
+                <h5 class="text-center mb-3">Valor de vendas (útlimos 7 dias)</h5>
+                <canvas id="dailySalesChart"></canvas>
+            </div>
 
-        <div class="col-md-6 text-center">
-            <h5 class="text-center mb-3">Quantidade de vendas diárias</h5>
-            <canvas id="dailySalesQuantityChart"></canvas>
+            <div class="col-md-6 text-center">
+                <h5 class="text-center mb-3">Quantidade de vendas diárias</h5>
+                <canvas id="dailySalesQuantityChart"></canvas>
+            </div>
         </div>
-    </div>
+    {% endif %}
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -75,23 +82,25 @@
         })
     </script>
 
-    <div class="row mt-4 justify-content-center">
-        <div class="col-md-6 text-center">
-            <h5 class="mb-3">Produtos por Categoria</h5>
-            <div class="mb-4"></div>
-            <div class="embed-responsive embed-responsive-1by1" style="width: 400px; display: inline-block;">
-                <canvas id="productByCategoryChart" class="embed-responsive-item"></canvas>
+    {% if perms.products.view_product %}
+        <div class="row mt-4 justify-content-center">
+            <div class="col-md-6 text-center">
+                <h5 class="mb-3">Produtos por Categoria</h5>
+                <div class="mb-4"></div>
+                <div class="embed-responsive embed-responsive-1by1" style="width: 400px; display: inline-block;">
+                    <canvas id="productByCategoryChart" class="embed-responsive-item"></canvas>
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-6 text-center">
-            <h5 class="mb-3">Produtos por Marca</h5>
-            <div class="mb-4"></div>
-            <div style="width: 400px; display: inline-block;">
-                <canvas id="productByBrandChart" class="embed-responsive-item"></canvas>
+            <div class="col-md-6 text-center">
+                <h5 class="mb-3">Produtos por Marca</h5>
+                <div class="mb-4"></div>
+                <div style="width: 400px; display: inline-block;">
+                    <canvas id="productByBrandChart" class="embed-responsive-item"></canvas>
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
