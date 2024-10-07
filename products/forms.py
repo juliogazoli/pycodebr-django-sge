@@ -16,7 +16,6 @@ class ProductForm(forms.ModelForm):
             'serie_number': forms.TextInput(attrs={'class': 'form-control'}),
             'cost_price': forms.NumberInput(attrs={'class': 'form-control'}),
             'selling_price': forms.NumberInput(attrs={'class': 'form-control'}),
-            
         }
         labels = {
             'title': 'Título',
